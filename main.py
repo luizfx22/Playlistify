@@ -30,7 +30,7 @@ class Playlistify:
     self.amount = amount
     self.genres = genres
     self.danceability = danceablity
-    self.market = ''
+    self.market = 'BR'
 
     # Username
     self.username = "g2wxqw13twqq0mpu79pxu0z10"
@@ -73,8 +73,31 @@ class Playlistify:
     genres = self.genres
     limit = self.amount
     market = self.market
+    valence = 0.9
+    popularity = 35
+    loudness = -15.8
+    energy = 0.8
+    # tempo = 80.8
 
-    recommendations = self.spotify.recommendations(seed_genres=genres, limit=limit, target_danceability=danceablity)
+    max_popularity=100
+    min_popularity=10
+
+    min_tempo = 75.5
+    max_tempo = 118.9
+
+    recommendations = self.spotify.recommendations(
+      seed_genres=genres,
+      limit=limit,
+      target_danceability=danceablity,
+      target_valence=valence,
+      target_popularity=popularity,
+      target_loudness=loudness,
+      target_energy=energy,
+      max_popularity=max_popularity,
+      min_popularity=min_popularity,
+      min_tempo=min_tempo,
+      max_tempo=max_tempo
+    )
 
     return recommendations
 
@@ -99,13 +122,13 @@ if __name__ == "__main__":
   amount = int(input("Amount of songs: "))
 
   genres = [
-    'edm',
-    'house',
-    'electronic',
+    'anime',
     'electro',
-    'techno'
+    'house',
+    'reggaeton',
+    'pop'
   ]
 
-  pl = Playlistify(name, amount, genres, 0.9)
+  pl = Playlistify(name, amount, genres, 1)
 
   pl.build_playlist()
